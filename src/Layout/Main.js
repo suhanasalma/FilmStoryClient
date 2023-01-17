@@ -11,7 +11,6 @@ const Main = () => {
        <Navbar />
        <div className={classes.content}>
          <div className={classes.toolbar} />
-
          <Outlet />
        </div>
      </div>
