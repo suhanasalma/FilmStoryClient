@@ -15,7 +15,7 @@ import { useTheme } from "@mui/material/styles";
 import useStyles from "./sidebarStyles";
 import redlogo from "../../../../Assets/BrandLogo/1.png";
 import bluelogo from "../../../../Assets/BrandLogo/2.png";
-import { blue } from "@mui/material/colors";
+
 
 const demoCategories = [
   { label: "Comedy", value: "comedy" },
