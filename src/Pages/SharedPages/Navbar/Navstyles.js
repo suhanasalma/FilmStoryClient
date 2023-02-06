@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-const drawerWidth = 240
+const drawerWidth = 240;
 export default makeStyles((theme) => ({
   toolbar: {
     height: "80px",
@@ -26,10 +26,10 @@ export default makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  linkButton:{
-    "&:hover":{
-      color:'white !important',
-      textDecoration:'none'
-    }
-  }
+  linkButton: {
+    "&:hover": {
+      color: "white !important",
+      textDecoration: "none",
+    },
+  },
 }));

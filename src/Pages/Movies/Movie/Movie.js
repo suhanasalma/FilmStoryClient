@@ -4,7 +4,7 @@ import useStyle from './movieStyles'
 import { Link } from 'react-router-dom';
 
 const Movie = ({ movie ,i}) => {
-   console.log(movie)
+  //  console.log(movie)
    const { vote_average, title } = movie;
    const classes = useStyle();
   return (

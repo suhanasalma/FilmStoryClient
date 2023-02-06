@@ -4,13 +4,19 @@ const tmdbApiKey = process.env.REACT_APP_TMDB_KEY;
 console.log(tmdbApiKey);
 const page = 1;
 
-// api: https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>&language=en-US&page=1
+// genre/movie/list?api_key=${tmdbApiKey}
 
 export const tmdbApi = createApi({
   reducerPath: "tmdbApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://api.themoviedb.org/3" }),
   endpoints: (builder) => ({
-    //get movies by [type]
+    //get genres
+    getGenres: builder.query({
+      query: () => ({
+        url: `genre/movie/list?api_key=${tmdbApiKey}`,
+      }),
+    }),
+    //get movies by [popular]
     getPopularMovies: builder.query({
       query: () => ({
         url: `/movie/popular?page=${page}&api_key=${tmdbApiKey}`,
@@ -19,4 +25,4 @@ export const tmdbApi = createApi({
   }),
 });
 
-export const { useGetPopularMoviesQuery } = tmdbApi;
+export const { useGetPopularMoviesQuery,useGetGenresQuery } = tmdbApi;

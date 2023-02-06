@@ -6,7 +6,7 @@ import {
   ListItemText,
   ListItemIcon,
   Box,
-  CircularProggress,
+  CircularProgress,
   ListSubheader,
 } from "@mui/material";
 
@@ -15,23 +15,11 @@ import { useTheme } from "@mui/material/styles";
 import useStyles from "./sidebarStyles";
 import redlogo from "../../../../Assets/BrandLogo/1.png";
 import bluelogo from "../../../../Assets/BrandLogo/2.png";
+import { useGetGenresQuery } from "../../../../Redux/Services/TMDB";
+import ImageIndex from "../../../../Assets/ImagesIndex/ImageIndex";
 
 
-const demoCategories = [
-  { label: "Comedy", value: "comedy" },
-  {
-    label: "Action",
-    value: "action",
-  },
-  {
-    label: "Horror",
-    value: "horror",
-  },
-  {
-    label: "Animation",
-    value: "animation",
-  },
-];
+
 const categories = [
   { label: "Popular", value: "popular" },
   {
@@ -47,6 +35,11 @@ const categories = [
 const Sidebar = ({ setMobileOpen }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const { data, error, isFetching } = useGetGenresQuery();
+
+
+
+
   return (
     <>
       <Link to="/" className={classes.imageLink}>
@@ -69,8 +62,8 @@ const Sidebar = ({ setMobileOpen }) => {
             <ListItem onClick={() => {}} button>
               <ListItemIcon>
                 <img
-                  className={classes.genreImages}
-                  src={redlogo}
+                  className={classes.genreImage}
+                  src={ImageIndex[label.toLowerCase()]}
                   alt=""
                   height={30}
                 />
@@ -83,26 +76,33 @@ const Sidebar = ({ setMobileOpen }) => {
       <Divider />
       <List>
         <ListSubheader>Genres</ListSubheader>
-        {demoCategories.map(({ label, value }) => (
-          <Link
-            onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
-            to="/"
-            key={value}
-            className={classes.links}
-          >
-            <ListItem onClick={() => {}} button>
-              <ListItemIcon>
-                <img
-                  className={classes.genreImages}
-                  src={redlogo}
-                  alt=""
-                  height={30}
-                />
-              </ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItem>
-          </Link>
-        ))}
+        {isFetching ? (
+          <Box display="flex" justifyContent="center">
+            <CircularProgress size="4rem" />
+          </Box>
+        ) : (
+          data?.genres?.map(({ name, id }) => (
+            <Link
+              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
+              to="/"
+              key={id}
+              className={classes.links}
+            >
+              <ListItem onClick={() => {}} button>
+                <ListItemIcon>
+                  <img
+                    className={classes.genreImage}
+                    src={ImageIndex[name.toLowerCase()]}
+                    alt=""
+                    height={30}
+                  />
+                </ListItemIcon>
+
+                <ListItemText primary={name} />
+              </ListItem>
+            </Link>
+          ))
+        )}
       </List>
     </>
   );
